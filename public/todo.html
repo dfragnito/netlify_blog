@@ -25,15 +25,24 @@ async function getTodos() {
   return todos
 } 
 
-var req = new XMLHttpRequest();
 
+var req = new XMLHttpRequest();
 req.open('GET','/.netlify/functions/todo', false);
 req.send(null);
 
 if(req.status == 200) {
-   window.todos = JSON.parse(req.responseText);
+   const data = JSON.parse(req.responseText);
 }
-    //window.todos = getTodos()
+      const defaultData = { todos: [] }
+      if (typeof data.data !== 'undefined'){
+			  const string = JSON.stringify(data.data);
+			  const string2 = string.slice(1,-1);
+			  const newtodo = `{"todos":[${string2}]}`
+           const newdata=JSON.parse(newtodo);
+			}else{
+				const newdata = defaultData
+			}
+    window.todos = JSON.stringify(newdata.todos || [])
 	 
     var updateTodos = function(updatetodo) {
       fetch("/.netlify/functions/todo", { 
