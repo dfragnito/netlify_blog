@@ -37,7 +37,8 @@ const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.to
 					 .then((response) => response.json())
 					 .then((data) => ({
 						statusCode: 200,
-						body:JSON.stringify(data),
+						body:putData,
+						//body:JSON.stringify(data),
 					 }))
 					 .catch((error) => ({ statusCode: 422, body: String(error) }));
 			
