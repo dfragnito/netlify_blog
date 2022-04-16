@@ -32,13 +32,12 @@ const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.to
 							"x-sfsql-apikey": process.env.api_key
 						  }, 
 						  method: "POST",
-						  body: todostring,
+						  body: putData,
 					  })
 					 .then((response) => response.json())
 					 .then((data) => ({
 						statusCode: 200,
-						body:putData,
-						//body:JSON.stringify(data),
+						body:JSON.stringify(data),
 					 }))
 					 .catch((error) => ({ statusCode: 422, body: String(error) }));
 			
