@@ -3,7 +3,8 @@ const API_ENDPOINT = process.env.endpoint;
 
 exports.handler = async (event, context) => {
 	
-const ip = 'abc';	
+const ipa = event.headers['client-ip'];
+const ip = ipa.replaceAll('.', '').replaceAll(':', '');	
 const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.todos.name as name, $b:.${ip}.todos.completed as completed"}}]`;
 		if (event.httpMethod == "GET") {	
 			
