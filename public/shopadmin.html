@@ -20,11 +20,20 @@ th, td {
   async function getShop() {
   const response = await fetch('/.netlify/functions/shop');
   const shop = await response.json();
-  return shop
 }
-    var results = await getShop();
+    let response = await fetch('/.netlify/functions/shop');
 	 
-    var obj = JSON.parse(results);
+    var results = shop;
+	 
+	 if (response.ok) { // if HTTP-status is 200-299
+	  // get the response body (the method explained below)
+	   var obj = await response.json();
+		
+	} else {
+	  alert("HTTP-Error: " + response.status);
+	}
+	 
+   // var obj = JSON.parse(results);
 	 
 	 let sups = obj.filter(supp => supp._q == "supp")[0]["data"];
 	 let prods = obj.filter(prod => prod._q == "prod")[0]["data"]; 
