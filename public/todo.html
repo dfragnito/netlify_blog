@@ -31,29 +31,20 @@ var req = new XMLHttpRequest();
 req.open('GET','/.netlify/functions/todo', false);
 req.send(null);
 
-if(req.status == 200) {
-	
+if(req.status == 200) {	
    var data = JSON.parse(req.responseText);
-	//var data = req.responseText;
-	//alert(req.responseText);
-   
 }
-	  //console.log(data);
+	  console.log(data[0]["data"]);
       const defaultData = {todos: [] };
-      if (typeof data.data !== 'undefined'){
-			   const string = JSON.stringify(data.data);
+      if (typeof data[0]["data"] !== 'undefined'){
+			   const string = JSON.stringify(data[0]["data"]);
 			   const string2 = string.slice(1,-1);
 			   const newtodo = `{"todos":[${string2}]}`
-               var newdata=JSON.parse(newtodo);
-		       //alert('hi');
+            var newdata=JSON.parse(newtodo);      
 			}else{
-		        //alert('bye');
-				var newdata = defaultData
+			   var newdata = defaultData
 			}
-	 //console.log(newdata); 
-    //window.todos = JSON.stringify(newdata.todos || [])
 	  window.todos = newdata.todos
-	 //console.log(window.todos); 
 	  
     var updateTodos = function(updatetodo) {
       fetch("/.netlify/functions/todo", { 
@@ -73,7 +64,6 @@ if(req.status == 200) {
     var populateTodos = function() {
       var todoContainer = document.querySelector("#todos")
       todoContainer.innerHTML = null
-		//console.log(window.todos);
       window.todos.forEach(todo => {
         var el = document.createElement("div")
         el.className = "border-t py-4"
@@ -103,4 +93,4 @@ if(req.status == 200) {
     }
     document.querySelector("#create").addEventListener('click', createTodo)
   </script>
-</html>`
+</html>
