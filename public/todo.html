@@ -19,6 +19,7 @@
     </div>
   </body>
   <script>
+	  
 async function getTodos() {
   const response = await fetch('/.netlify/functions/todo');
   const todos = await response.json();
@@ -31,19 +32,29 @@ req.open('GET','/.netlify/functions/todo', false);
 req.send(null);
 
 if(req.status == 200) {
-   const data = JSON.parse(req.responseText);
+	
+   var data = JSON.parse(req.responseText);
+	//var data = req.responseText;
+	//alert(req.responseText);
+   
 }
-      const defaultData = { todos: [] }
+	  //console.log(data);
+      const defaultData = {todos: [] };
       if (typeof data.data !== 'undefined'){
-			  const string = JSON.stringify(data.data);
-			  const string2 = string.slice(1,-1);
-			  const newtodo = `{"todos":[${string2}]}`
-           const newdata=JSON.parse(newtodo);
+			   const string = JSON.stringify(data.data);
+			   const string2 = string.slice(1,-1);
+			   const newtodo = `{"todos":[${string2}]}`
+               var newdata=JSON.parse(newtodo);
+		       //alert('hi');
 			}else{
-				const newdata = defaultData
+		        //alert('bye');
+				var newdata = defaultData
 			}
-    window.todos = JSON.stringify(newdata.todos || [])
-	 
+	 //console.log(newdata); 
+    //window.todos = JSON.stringify(newdata.todos || [])
+	  window.todos = newdata.todos
+	 //console.log(window.todos); 
+	  
     var updateTodos = function(updatetodo) {
       fetch("/.netlify/functions/todo", { 
 		method: 'POST', 
@@ -62,6 +73,7 @@ if(req.status == 200) {
     var populateTodos = function() {
       var todoContainer = document.querySelector("#todos")
       todoContainer.innerHTML = null
+		console.log(window.todos);
       window.todos.forEach(todo => {
         var el = document.createElement("div")
         el.className = "border-t py-4"
