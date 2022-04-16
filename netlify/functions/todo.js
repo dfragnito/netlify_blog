@@ -22,7 +22,7 @@ const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.to
 					 }))
 					 .catch((error) => ({ statusCode: 422, body: String(error) }));
 		}else{
-			const updatedtodo = querystring.parse(event.body);
+			const updatedtodo = JSON.parse(event.body)
 			const id = updatedtodo.todos.id;
 			const todostring=JSON.stringify(updatedtodo.todos);
 			const putData = `[{"modify":{"data":{"o:cftodos":{"${ip}":{"todos":[{"#set":{"where":"$i:todos.id=${id}"}},${todostring}]}}}}}]`

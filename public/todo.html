@@ -73,7 +73,7 @@ if(req.status == 200) {
     var populateTodos = function() {
       var todoContainer = document.querySelector("#todos")
       todoContainer.innerHTML = null
-		console.log(window.todos);
+		//console.log(window.todos);
       window.todos.forEach(todo => {
         var el = document.createElement("div")
         el.className = "border-t py-4"
