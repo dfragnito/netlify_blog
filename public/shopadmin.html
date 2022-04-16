@@ -17,23 +17,21 @@ th, td {
 <pre id="whereToPrint"></pre>
 <div id="examplewrap"></div>
   <script>
-  async function getShop() {
-  const response = await fetch('/.netlify/functions/shop');
-  const shop = await response.json();
+  //async function getShop() {
+  //const response = await fetch('/.netlify/functions/shop');
+  //return response.json();
+//}
+
+var req = new XMLHttpRequest();
+
+req.open('GET', '/.netlify/functions/shop', false);
+req.send(null);
+
+if(req.status == 200) {
+   var obj = JSON.parse(req.responseText);
 }
-    let response = await fetch('/.netlify/functions/shop');
-	 
-    var results = shop;
-	 
-	 if (response.ok) { // if HTTP-status is 200-299
-	  // get the response body (the method explained below)
-	   var obj = await response.json();
-		
-	} else {
-	  alert("HTTP-Error: " + response.status);
-	}
-	 
-   // var obj = JSON.parse(results);
+ 
+   // var obj = JSON.parse(req.responseText);
 	 
 	 let sups = obj.filter(supp => supp._q == "supp")[0]["data"];
 	 let prods = obj.filter(prod => prod._q == "prod")[0]["data"]; 
