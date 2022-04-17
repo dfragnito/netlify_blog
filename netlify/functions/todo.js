@@ -6,8 +6,19 @@ exports.handler = async (event, context) => {
 const ipa = event.headers['x-nf-client-connection-ip'];
 const ip = ipa.replace(/\./g, '').replace(/\:/g, '');	
 const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.todos.name as name, $b:.${ip}.todos.completed as completed"}}]`;
-		if (event.httpMethod == "GET") {	
+	if (event.httpMethod == "GET") {	
+		
+	if(event.queryStringParameters.id){
+		
+		  const id = event.queryStringParameters.id
+		  return {
+        headers: {
+            "Location": "/?id=" + id,
+                 },
+         };
 			
+		 }else{
+			 
 				return fetch(API_ENDPOINT, {
 					  headers: {
 							"content-type": "application/json",
@@ -22,7 +33,8 @@ const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.to
 						body:JSON.stringify(data),
 					 }))
 					 .catch((error) => ({ statusCode: 422, body: String(error) }));
-		}else{
+		 }		 
+	}else{
 			const updatedtodo = JSON.parse(event.body)
 			const id = updatedtodo.todos.id;
 			const todostring=JSON.stringify(updatedtodo.todos);
