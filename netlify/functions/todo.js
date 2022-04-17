@@ -12,6 +12,7 @@ const QData = `[{"query":{"sfsql":"SELECT $i:.${ip}.todos.id as id, $s:.${ip}.to
 		
 		  const id = event.queryStringParameters.id
 		  return {
+        statusCode: 200,
         headers: {
             "Location": "/?id=" + id,
                  },
